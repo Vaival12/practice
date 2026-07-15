@@ -27,6 +27,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
+
+                .cors(cors -> {})
+
                 .csrf(csrf -> csrf.disable())
 
                 .sessionManagement(session ->
@@ -48,10 +51,74 @@ public class SecurityConfig {
                         // Регистрация
                         .requestMatchers(HttpMethod.POST, "/api/users").permitAll()
 
-                        // Просмотр вакансий всем авторизованным
-                        .requestMatchers(HttpMethod.GET, "/api/vacancies/**").authenticated()
+                        // Публичный просмотр
+                        .requestMatchers(HttpMethod.GET, "/api/directions/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/competencies/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/vacancies/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/organizations/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/universities/**").permitAll()
 
-                        // Остальное только авторизованным
+                        // Пользователи
+                        .requestMatchers("/api/users/**")
+                        .hasRole("ADMIN")
+
+                        // Студенты
+                        .requestMatchers("/api/students/**")
+                        .hasAnyRole(
+                                "ADMIN",
+                                "STUDENT",
+                                "UNIVERSITY_MODERATOR"
+                        )
+
+                        // Университеты
+                        .requestMatchers("/api/universities/**")
+                        .hasAnyRole(
+                                "ADMIN",
+                                "UNIVERSITY_MODERATOR"
+                        )
+
+                        // Организации
+                        .requestMatchers("/api/organizations/**")
+                        .hasAnyRole(
+                                "ADMIN",
+                                "ORGANIZATION_MODERATOR"
+                        )
+
+                        // Вакансии
+                        .requestMatchers(HttpMethod.POST, "/api/vacancies/**")
+                        .hasAnyRole(
+                                "ADMIN",
+                                "ORGANIZATION_MODERATOR"
+                        )
+
+                        .requestMatchers(HttpMethod.PUT, "/api/vacancies/**")
+                        .hasAnyRole(
+                                "ADMIN",
+                                "ORGANIZATION_MODERATOR"
+                        )
+
+                        .requestMatchers(HttpMethod.DELETE, "/api/vacancies/**")
+                        .hasAnyRole(
+                                "ADMIN",
+                                "ORGANIZATION_MODERATOR"
+                        )
+
+                        // Заявки
+                        .requestMatchers("/api/applications/**")
+                        .hasAnyRole(
+                                "ADMIN",
+                                "STUDENT",
+                                "ORGANIZATION_MODERATOR"
+                        )
+
+                        // Модераторы
+                        .requestMatchers("/api/universityModerators/**")
+                        .hasRole("ADMIN")
+
+                        .requestMatchers("/api/organizationModerators/**")
+                        .hasRole("ADMIN")
+
+                        // Всё остальное
                         .anyRequest().authenticated()
                 );
 

@@ -41,6 +41,7 @@ com\practiceSystem\ApplicationServices\DirectionServiceImpl.class
 com\practiceSystem\Entity\UniversityModerator.class
 com\practiceSystem\Control\UniversityController.class
 com\practiceSystem\security\ApplicationConfig.class
+com\practiceSystem\security\CorsConfig.class
 com\practiceSystem\dao\UniversityModerator\UniversityModeratorService.class
 com\practiceSystem\dao\University\UniversityService.class
 com\practiceSystem\dao\User\UserRepository.class

@@ -84,6 +84,7 @@ C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem
 C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\Main.java
 C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\security\AccessService.java
 C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\security\ApplicationConfig.java
+C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\security\CorsConfig.java
 C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\security\DataInitializer.java
 C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\security\JwtAuthenticationFilter.java
 C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\security\JwtService.java

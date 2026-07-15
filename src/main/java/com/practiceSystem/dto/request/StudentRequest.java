@@ -1,6 +1,7 @@
 package com.practiceSystem.dto.request;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class StudentRequest {
 
@@ -8,21 +9,19 @@ public class StudentRequest {
 
     private Long universityId;
 
-    private String lastName;
-
-    private String firstName;
-
-    private String middleName;
-
-    private LocalDate birthDate;
-
-    private String phone;
-
     private Integer course;
 
     private String groupName;
 
     private String specialization;
+
+    private LocalDate practiceStart;
+
+    private LocalDate practiceEnd;
+
+    private List<Long> competencyIds;
+
+    private List<Long> directionIds;
 
     public Long getUserId() {
         return userId;
@@ -38,46 +37,6 @@ public class StudentRequest {
 
     public void setUniversityId(Long universityId) {
         this.universityId = universityId;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
-    }
-
-    public LocalDate getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public Integer getCourse() {
@@ -102,5 +61,37 @@ public class StudentRequest {
 
     public void setSpecialization(String specialization) {
         this.specialization = specialization;
+    }
+
+    public LocalDate getPracticeStart() {
+        return practiceStart;
+    }
+
+    public void setPracticeStart(LocalDate practiceStart) {
+        this.practiceStart = practiceStart;
+    }
+
+    public LocalDate getPracticeEnd() {
+        return practiceEnd;
+    }
+
+    public void setPracticeEnd(LocalDate practiceEnd) {
+        this.practiceEnd = practiceEnd;
+    }
+
+    public List<Long> getCompetencyIds() {
+        return competencyIds;
+    }
+
+    public void setCompetencyIds(List<Long> competencyIds) {
+        this.competencyIds = competencyIds;
+    }
+
+    public List<Long> getDirectionIds() {
+        return directionIds;
+    }
+
+    public void setDirectionIds(List<Long> directionIds) {
+        this.directionIds = directionIds;
     }
 }

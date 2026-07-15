@@ -1,13 +1,14 @@
 package com.practiceSystem.ApplicationServices;
 
+import com.practiceSystem.Entity.*;
+import com.practiceSystem.dao.Competency.CompetencyRepository;
+import com.practiceSystem.dao.Direction.DirectionRepository;
 import com.practiceSystem.dao.University.UniversityRepository;
 import com.practiceSystem.dao.User.UserRepository;
+import com.practiceSystem.security.AccessService;
 import org.springframework.stereotype.Service;
 import com.practiceSystem.dao.Student.StudentRepository;
 import com.practiceSystem.dao.Student.StudentService;
-import com.practiceSystem.Entity.University;
-import com.practiceSystem.Entity.User;
-import com.practiceSystem.Entity.Student;
 import com.practiceSystem.dto.request.StudentRequest;
 
 import java.util.List;
@@ -22,11 +23,20 @@ public class StudentServiceImpl implements StudentService {
 
     private final UniversityRepository universityRepository;
 
-    public StudentServiceImpl(StudentRepository studentRepository, UserRepository userRepository, UniversityRepository universityRepository) {
+    private final AccessService accessService;
+
+    private final CompetencyRepository competencyRepository;
+
+    private final DirectionRepository directionRepository;
+
+    public StudentServiceImpl(StudentRepository studentRepository, UserRepository userRepository, UniversityRepository universityRepository, AccessService accessService,CompetencyRepository competencyRepository, DirectionRepository directionRepository) {
 
         this.studentRepository = studentRepository;
         this.userRepository = userRepository;
         this.universityRepository = universityRepository;
+        this.accessService = accessService;
+        this.competencyRepository = competencyRepository;
+        this.directionRepository = directionRepository;
 
     }
 
@@ -40,8 +50,16 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Optional<Student> findById(Long id) {
 
-        return studentRepository.findById(id);
+        Student student = studentRepository.findById(id)
+                .orElseThrow();
 
+
+        if (!accessService.canViewStudent(student)) {
+            throw new RuntimeException("Нет доступа");
+        }
+
+
+        return Optional.of(student);
     }
 
     @Override
@@ -54,8 +72,15 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void deleteById(Long id) {
 
-        studentRepository.deleteById(id);
+        Student student = studentRepository.findById(id).orElseThrow();
 
+
+        if (!accessService.canEditStudent(student)) {
+            throw new RuntimeException("Нет доступа");
+        }
+
+
+        studentRepository.delete(student);
     }
 
     @Override
@@ -69,14 +94,17 @@ public class StudentServiceImpl implements StudentService {
 
         student.setUser(user);
         student.setUniversity(university);
-        student.setFirstName(request.getFirstName());
-        student.setLastName(request.getLastName());
-        student.setMiddleName(request.getMiddleName());
-        student.setBirthDate(request.getBirthDate());
-        student.setPhone(request.getPhone());
         student.setCourse(request.getCourse());
         student.setGroupName(request.getGroupName());
         student.setSpecialization(request.getSpecialization());
+        student.setPracticeStart(request.getPracticeStart());
+        student.setPracticeEnd(request.getPracticeEnd());
+
+        List<Competency> competencies = competencyRepository.findAllById(request.getCompetencyIds());
+        student.setCompetencies(competencies);
+
+        List<Direction> directions = directionRepository.findAllById(request.getDirectionIds());
+        student.setDirections(directions);
 
         return studentRepository.save(student);
 
@@ -87,21 +115,27 @@ public class StudentServiceImpl implements StudentService {
 
         Student student = studentRepository.findById(id).orElseThrow();
 
+        if (!accessService.canEditStudent(student)) {
+            throw new RuntimeException("Нет доступа");
+        }
+
         User user = userRepository.findById(request.getUserId()).orElseThrow();
 
         University university = universityRepository.findById(request.getUniversityId()).orElseThrow();
 
         student.setUser(user);
         student.setUniversity(university);
-
-        student.setFirstName(request.getFirstName());
-        student.setLastName(request.getLastName());
-        student.setMiddleName(request.getMiddleName());
-        student.setBirthDate(request.getBirthDate());
-        student.setPhone(request.getPhone());
         student.setCourse(request.getCourse());
         student.setGroupName(request.getGroupName());
         student.setSpecialization(request.getSpecialization());
+        student.setPracticeStart(request.getPracticeStart());
+        student.setPracticeEnd(request.getPracticeEnd());
+
+        List<Competency> competencies = competencyRepository.findAllById(request.getCompetencyIds());
+        student.setCompetencies(competencies);
+
+        List<Direction> directions = directionRepository.findAllById(request.getDirectionIds());
+        student.setDirections(directions);
 
         return studentRepository.save(student);
     }

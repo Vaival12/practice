@@ -36,7 +36,9 @@ public class VacancyController {
         response.setRequirements(vacancy.getRequirements());
         response.setDirection(vacancy.getDirection());
         response.setPracticeResult(vacancy.getPracticeResult());
-        response.setStatus(vacancy.getStatus().name());
+        response.setStatus(vacancy.getStatus().getName());
+        response.setPracticeStart(vacancy.getPracticeStart());
+        response.setPracticeEnd(vacancy.getPracticeEnd());
 
         return response;
 
@@ -55,9 +57,11 @@ public class VacancyController {
         response.setRequirements(vacancy.getRequirements());
         response.setDirection(vacancy.getDirection());
         response.setPracticeResult(vacancy.getPracticeResult());
-        response.setStatus(vacancy.getStatus().name());
+        response.setStatus(vacancy.getStatus().getName());
         response.setOrganizationName(vacancy.getOrganization().getName());
         response.setCreatedAt(vacancy.getCreatedAt());
+        response.setPracticeStart(vacancy.getPracticeStart());
+        response.setPracticeEnd(vacancy.getPracticeEnd());
 
         return response;
 
@@ -77,9 +81,11 @@ public class VacancyController {
             response.setRequirements(vacancy.getRequirements());
             response.setDirection(vacancy.getDirection());
             response.setPracticeResult(vacancy.getPracticeResult());
-            response.setStatus(vacancy.getStatus().name());
+            response.setStatus(vacancy.getStatus().getName());
             response.setOrganizationName(vacancy.getOrganization().getName());
             response.setCreatedAt(vacancy.getCreatedAt());
+            response.setPracticeStart(vacancy.getPracticeStart());
+            response.setPracticeEnd(vacancy.getPracticeEnd());
 
             result.add(response);
 
@@ -102,9 +108,11 @@ public class VacancyController {
         response.setRequirements(vacancy.getRequirements());
         response.setDirection(vacancy.getDirection());
         response.setPracticeResult(vacancy.getPracticeResult());
-        response.setStatus(vacancy.getStatus().name());
+        response.setStatus(vacancy.getStatus().getName());
         response.setOrganizationName(vacancy.getOrganization().getName());
         response.setCreatedAt(vacancy.getCreatedAt());
+        response.setPracticeStart(vacancy.getPracticeStart());
+        response.setPracticeEnd(vacancy.getPracticeEnd());
 
         return response;
 
@@ -118,7 +126,7 @@ public class VacancyController {
         VacancyResponse response = new VacancyResponse();
 
         response.setId(vacancy.getId());
-        response.setStatus(vacancy.getStatus().name());
+        response.setStatus(vacancy.getStatus().getName());
 
         return response;
     }

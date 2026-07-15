@@ -15,8 +15,6 @@ import java.util.function.Function;
 @Service
 public class JwtService {
 
-    // Пока оставим ключ прямо в коде.
-    // Потом вынесем в application.properties.
     private static final String SECRET =
             "practiceSystemSecretKeyPracticeSystemSecretKey123456";
 

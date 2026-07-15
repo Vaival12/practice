@@ -7,6 +7,7 @@ import com.practiceSystem.dao.OrganizationModerator.OrganizationModeratorReposit
 import com.practiceSystem.dao.OrganizationModerator.OrganizationModeratorService;
 import com.practiceSystem.dao.Organization.OrganizationRepository;
 import com.practiceSystem.dao.User.UserRepository;
+import com.practiceSystem.dao.Permission.PermissionService;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,19 +19,24 @@ public class OrganizationModeratorServiceImpl implements OrganizationModeratorSe
     private final OrganizationModeratorRepository moderatorRepository;
     private final OrganizationRepository organizationRepository;
     private final UserRepository userRepository;
+    private final PermissionService permissionService;
 
-    public OrganizationModeratorServiceImpl(OrganizationModeratorRepository moderatorRepository, OrganizationRepository organizationRepository, UserRepository userRepository) {
+    public OrganizationModeratorServiceImpl(OrganizationModeratorRepository moderatorRepository, OrganizationRepository organizationRepository, UserRepository userRepository, PermissionService permissionService) {
 
         this.moderatorRepository = moderatorRepository;
         this.organizationRepository = organizationRepository;
         this.userRepository = userRepository;
+        this.permissionService = permissionService;
 
     }
 
     @Override
     public OrganizationModerator create(OrganizationModeratorRequest request) {
 
+        permissionService.checkOrganizationSuperModerator();
+
         Organization organization = organizationRepository.findById(request.getOrganizationId()).orElseThrow();
+
 
         User user = userRepository.findById(request.getUserId()).orElseThrow();
 
@@ -45,12 +51,16 @@ public class OrganizationModeratorServiceImpl implements OrganizationModeratorSe
     @Override
     public List<OrganizationModerator> findAll() {
 
+        permissionService.checkOrganizationModerator();
+
         return moderatorRepository.findAll();
 
     }
 
     @Override
     public Optional<OrganizationModerator> findById(Long id) {
+
+        permissionService.checkOrganizationModerator();
 
         return moderatorRepository.findById(id);
 
@@ -59,6 +69,8 @@ public class OrganizationModeratorServiceImpl implements OrganizationModeratorSe
     @Override
     public List<OrganizationModerator> findByOrganizationId(Long organizationId) {
 
+        permissionService.checkOrganizationModerator();
+
         return moderatorRepository.findByOrganizationId(organizationId);
 
     }
@@ -66,12 +78,16 @@ public class OrganizationModeratorServiceImpl implements OrganizationModeratorSe
     @Override
     public OrganizationModerator save(OrganizationModerator moderator) {
 
+        permissionService.checkOrganizationSuperModerator();
+
         return moderatorRepository.save(moderator);
 
     }
 
     @Override
     public void deleteById(Long id) {
+
+        permissionService.checkOrganizationSuperModerator();
 
         moderatorRepository.deleteById(id);
 

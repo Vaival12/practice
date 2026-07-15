@@ -25,15 +25,12 @@ public class StudentController {
         StudentResponse response = new StudentResponse();
 
         response.setId(student.getId());
-        response.setFirstName(student.getFirstName());
-        response.setLastName(student.getLastName());
-        response.setMiddleName(student.getMiddleName());
-        response.setBirthDate(student.getBirthDate());
         response.setGroupName(student.getGroupName());
         response.setSpecialization(student.getSpecialization());
         response.setUniversityName(student.getUniversity().getName());
-        response.setPhone(student.getPhone());
         response.setCourse(student.getCourse());
+        response.setPracticeStart(student.getPracticeStart());
+        response.setPracticeEnd(student.getPracticeEnd());
 
         return response;
     }
@@ -47,14 +44,11 @@ public class StudentController {
         StudentResponse response = new StudentResponse();
 
         response.setId(student.getId());
-        response.setFirstName(student.getFirstName());
-        response.setLastName(student.getLastName());
-        response.setMiddleName(student.getMiddleName());
-        response.setBirthDate(student.getBirthDate());
-        response.setPhone(student.getPhone());
         response.setCourse(student.getCourse());
         response.setGroupName(student.getGroupName());
         response.setSpecialization(student.getSpecialization());
+        response.setPracticeStart(student.getPracticeStart());
+        response.setPracticeEnd(student.getPracticeEnd());
 
         if(student.getUniversity() != null){
             response.setUniversityName(student.getUniversity().getName());
@@ -74,15 +68,12 @@ public class StudentController {
             StudentResponse response = new StudentResponse();
 
             response.setId(student.getId());
-            response.setFirstName(student.getFirstName());
-            response.setLastName(student.getLastName());
-            response.setMiddleName(student.getMiddleName());
-            response.setBirthDate(student.getBirthDate());
-            response.setPhone(student.getPhone());
             response.setCourse(student.getCourse());
             response.setGroupName(student.getGroupName());
             response.setSpecialization(student.getSpecialization());
             response.setUniversityName(student.getUniversity().getName());
+            response.setPracticeStart(student.getPracticeStart());
+            response.setPracticeEnd(student.getPracticeEnd());
 
             list.add(response);
         }
@@ -98,16 +89,14 @@ public class StudentController {
         StudentResponse response = new StudentResponse();
 
         response.setId(student.getId());
-        response.setFirstName(student.getFirstName());
-        response.setLastName(student.getLastName());
-        response.setMiddleName(student.getMiddleName());
-        response.setBirthDate(student.getBirthDate());
+
         response.setGroupName(student.getGroupName());
         response.setSpecialization(student.getSpecialization());
         response.setUniversityName(student.getUniversity().getName());
-        response.setPhone(student.getPhone());
         response.setCourse(student.getCourse());
         response.setUniversityName(student.getUniversity().getName());
+        response.setPracticeStart(student.getPracticeStart());
+        response.setPracticeEnd(student.getPracticeEnd());
 
         return response;
     }

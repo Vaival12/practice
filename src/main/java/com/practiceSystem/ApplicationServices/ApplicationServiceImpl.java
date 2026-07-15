@@ -1,5 +1,6 @@
 package com.practiceSystem.ApplicationServices;
 
+import com.practiceSystem.ApplicationStatus.ApplicationStatusRepository;
 import com.practiceSystem.Entity.Application;
 import com.practiceSystem.Entity.ApplicationStatus;
 import com.practiceSystem.Entity.Student;
@@ -9,6 +10,7 @@ import com.practiceSystem.dao.Application.ApplicationService;
 import com.practiceSystem.dao.Student.StudentRepository;
 import com.practiceSystem.dao.Vacancy.VacancyRepository;
 import com.practiceSystem.dto.request.ApplicationRequest;
+import com.practiceSystem.security.AccessService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,12 +24,16 @@ public class ApplicationServiceImpl implements ApplicationService {
     private final ApplicationRepository applicationRepository;
     private final StudentRepository studentRepository;
     private final VacancyRepository vacancyRepository;
+    private final AccessService accessService;
+    private final ApplicationStatusRepository statusRepository;
 
-    public ApplicationServiceImpl(ApplicationRepository applicationRepository, StudentRepository studentRepository, VacancyRepository vacancyRepository) {
+    public ApplicationServiceImpl(ApplicationRepository applicationRepository, StudentRepository studentRepository, VacancyRepository vacancyRepository, AccessService accessService,ApplicationStatusRepository statusRepository) {
 
         this.applicationRepository = applicationRepository;
         this.studentRepository = studentRepository;
         this.vacancyRepository = vacancyRepository;
+        this.accessService = accessService;
+        this.statusRepository = statusRepository;
 
     }
 
@@ -41,7 +47,17 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     public Optional<Application> findById(Long id) {
 
-        return applicationRepository.findById(id);
+        Application application =
+                applicationRepository.findById(id)
+                        .orElseThrow();
+
+
+        if(!accessService.canViewApplication(application)){
+            throw new RuntimeException("Нет доступа");
+        }
+
+
+        return Optional.of(application);
 
     }
 
@@ -66,12 +82,13 @@ public class ApplicationServiceImpl implements ApplicationService {
 
         Vacancy vacancy = vacancyRepository.findById(request.getVacancyId()).orElseThrow();
 
+        ApplicationStatus status = statusRepository.findByName("APPLIED");
+
         Application application = new Application();
 
         application.setStudent(student);
         application.setVacancy(vacancy);
-        application.setComment(request.getComment());
-        application.setStatus(ApplicationStatus.APPLIED);
+        application.setStatus(status);
 
         return applicationRepository.save(application);
     }
@@ -80,6 +97,10 @@ public class ApplicationServiceImpl implements ApplicationService {
     public Application updateStatus(Long id, ApplicationStatus status) {
 
         Application application = applicationRepository.findById(id).orElseThrow();
+
+        if(!accessService.canEditApplication(application)){
+            throw new RuntimeException("Нет доступа");
+        }
 
         application.setStatus(status);
 

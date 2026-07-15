@@ -3,6 +3,7 @@ package com.practiceSystem.Entity;
 import jakarta.persistence.*;
 import com.practiceSystem.Entity.Role;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -19,8 +20,19 @@ public class User {
     @Column(nullable = false)
     private String passwordHash;
 
-    @Enumerated(EnumType.STRING)
+    private String lastName;
+
     @Column(nullable = false)
+    private String firstName;
+
+    private String middleName;
+
+    private String phone;
+
+    private LocalDate birthDate;
+
+    @ManyToOne
+    @JoinColumn(name = "role_id")
     private Role role;
 
     @Column(nullable = false)
@@ -39,20 +51,26 @@ public class User {
     public User() {
     }
 
-    public User(String email, String passwordHash, Role role, Boolean active) {
+    public User(String email, String passwordHash, Role role, Boolean active, LocalDate birthDate, String firstName, String middleName, String lastName, String phone) {
         this.email = email;
         this.passwordHash = passwordHash;
         this.role = role;
         this.active = active;
+        this.birthDate = birthDate;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.phone = phone;
     }
 
     @PrePersist
-    protected void onCreate() {
+    public void onCreate() {
         createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
     }
 
     @PreUpdate
-    protected void onUpdate() {
+    public void onUpdate() {
         updatedAt = LocalDateTime.now();
     }
 
@@ -127,4 +145,46 @@ public class User {
     public void setStudent(Student student) {
         this.student = student;
     }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+
 }

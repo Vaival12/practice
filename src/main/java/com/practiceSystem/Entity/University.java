@@ -28,11 +28,13 @@ public class University {
     @OneToMany(mappedBy = "university")
     private List<Student> students;
 
+    @OneToMany(mappedBy = "university")
+    private List<UniversityModerator> moderators;
+
     public University() {
     }
 
-    public University(String name, String description, String address,
-                      String website, String email, String phone) {
+    public University(String name, String description, String address, String website, String email, String phone) {
         this.name = name;
         this.description = description;
         this.address = address;
@@ -103,5 +105,13 @@ public class University {
 
     public void setStudents(List<Student> students) {
         this.students = students;
+    }
+
+    public List<UniversityModerator> getModerators() {
+        return moderators;
+    }
+
+    public void setModerators(List<UniversityModerator> moderators) {
+        this.moderators = moderators;
     }
 }

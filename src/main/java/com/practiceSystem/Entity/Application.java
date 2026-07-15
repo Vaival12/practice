@@ -15,15 +15,16 @@ public class Application {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "student_id", nullable = false)
     private Student student;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "vacancy_id", nullable = false)
     private Vacancy vacancy;
 
-    @Enumerated(EnumType.STRING)
+    @ManyToOne
+    @JoinColumn(name = "status_id")
     private ApplicationStatus status;
 
     @Column(length = 1000)
@@ -102,4 +103,6 @@ public class Application {
     public void setStatus(ApplicationStatus status) {
         this.status = status;
     }
+
+
 }

@@ -29,6 +29,11 @@ public class UserController {
         response.setId(user.getId());
         response.setEmail(user.getEmail());
         response.setRole(user.getRole());
+        response.setFirstName(user.getFirstName());
+        response.setLastName(user.getLastName());
+        response.setMiddleName(user.getMiddleName());
+        response.setBirthDate(user.getBirthDate());
+        response.setPhone(user.getPhone());
         response.setActive(user.getActive());
 
         return response;
@@ -44,6 +49,11 @@ public class UserController {
         response.setId(user.getId());
         response.setEmail(user.getEmail());
         response.setRole(user.getRole());
+        response.setFirstName(user.getFirstName());
+        response.setLastName(user.getLastName());
+        response.setMiddleName(user.getMiddleName());
+        response.setBirthDate(user.getBirthDate());
+        response.setPhone(user.getPhone());
         response.setActive(user.getActive());
 
         return response;
@@ -61,6 +71,11 @@ public class UserController {
             response.setId(user.getId());
             response.setEmail(user.getEmail());
             response.setRole(user.getRole());
+            response.setFirstName(user.getFirstName());
+            response.setLastName(user.getLastName());
+            response.setMiddleName(user.getMiddleName());
+            response.setBirthDate(user.getBirthDate());
+            response.setPhone(user.getPhone());
             response.setActive(user.getActive());
 
             list.add(response);
@@ -79,6 +94,11 @@ public class UserController {
         response.setId(user.getId());
         response.setEmail(user.getEmail());
         response.setRole(user.getRole());
+        response.setFirstName(user.getFirstName());
+        response.setLastName(user.getLastName());
+        response.setMiddleName(user.getMiddleName());
+        response.setBirthDate(user.getBirthDate());
+        response.setPhone(user.getPhone());
         response.setActive(user.getActive());
 
         return response;

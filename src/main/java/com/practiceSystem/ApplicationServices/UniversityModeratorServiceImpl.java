@@ -10,6 +10,7 @@ import com.practiceSystem.dao.UniversityModerator.UniversityModeratorService;
 import com.practiceSystem.Entity.UniversityModerator;
 import com.practiceSystem.Entity.University;
 import com.practiceSystem.Entity.User;
+import com.practiceSystem.dao.Permission.PermissionService;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,20 +24,26 @@ public class UniversityModeratorServiceImpl implements UniversityModeratorServic
 
     private final UserRepository userRepository;
 
-    public UniversityModeratorServiceImpl(UniversityModeratorRepository moderatorRepository, UniversityRepository universityRepository, UserRepository userRepository) {
+    private final PermissionService permissionService;
+
+    public UniversityModeratorServiceImpl(UniversityModeratorRepository moderatorRepository, UniversityRepository universityRepository, UserRepository userRepository, PermissionService permissionService) {
 
         this.moderatorRepository = moderatorRepository;
         this.universityRepository = universityRepository;
         this.userRepository = userRepository;
+        this.permissionService = permissionService;
 
     }
 
     @Override
     public UniversityModerator create(UniversityModeratorRequest request) {
 
+        permissionService.checkUniversitySuperModerator();
+
         University university = universityRepository.findById(request.getUniversityId()).orElseThrow();
 
         User user = userRepository.findById(request.getUserId()).orElseThrow();
+
 
         UniversityModerator moderator = new UniversityModerator();
 
@@ -49,6 +56,8 @@ public class UniversityModeratorServiceImpl implements UniversityModeratorServic
     @Override
     public List<UniversityModerator> findAll() {
 
+        permissionService.checkUniversityModerator();
+
         return moderatorRepository.findAll();
 
     }
@@ -56,12 +65,16 @@ public class UniversityModeratorServiceImpl implements UniversityModeratorServic
     @Override
     public Optional<UniversityModerator> findById(Long id) {
 
+        permissionService.checkUniversityModerator();
+
         return moderatorRepository.findById(id);
 
     }
 
     @Override
     public UniversityModerator save(UniversityModerator moderator) {
+
+        permissionService.checkUniversitySuperModerator();
 
         return moderatorRepository.save(moderator);
 
@@ -75,6 +88,8 @@ public class UniversityModeratorServiceImpl implements UniversityModeratorServic
     }
     @Override
     public void deleteById(Long id) {
+
+        permissionService.checkUniversitySuperModerator();
 
         moderatorRepository.deleteById(id);
 

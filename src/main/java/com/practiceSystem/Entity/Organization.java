@@ -33,6 +33,14 @@ public class Organization {
     @OneToMany(mappedBy = "organization")
     private List<OrganizationModerator> moderators;
 
+    @ManyToMany
+    @JoinTable(name = "organization_competency", joinColumns = @JoinColumn(name = "organization_id"), inverseJoinColumns = @JoinColumn(name = "competency_id"))
+    private List<Competency> competencies;
+
+    @ManyToMany
+    @JoinTable(name = "organization_direction", joinColumns = @JoinColumn(name = "organization_id"), inverseJoinColumns = @JoinColumn(name = "direction_id"))
+    private List<Direction> directions;
+
     public Organization() {
     }
 
@@ -108,4 +116,19 @@ public class Organization {
         this.moderators = moderators;
     }
 
+    public List<Competency> getCompetencies() {
+        return competencies;
+    }
+
+    public void setCompetencies(List<Competency> competencies) {
+        this.competencies = competencies;
+    }
+
+    public List<Direction> getDirections() {
+        return directions;
+    }
+
+    public void setDirections(List<Direction> directions) {
+        this.directions = directions;
+    }
 }

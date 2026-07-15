@@ -1,5 +1,7 @@
 package com.practiceSystem.dto.request;
 
+import java.util.List;
+
 public class OrganizationRequest {
 
     private String name;
@@ -13,6 +15,10 @@ public class OrganizationRequest {
     private String email;
 
     private String phone;
+
+    private List<Long> competencyIds;
+
+    private List<Long> directionIds;
 
     public String getName() {
         return name;
@@ -60,5 +66,21 @@ public class OrganizationRequest {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public List<Long> getCompetencyIds() {
+        return competencyIds;
+    }
+
+    public void setCompetencyIds(List<Long> competencyIds) {
+        this.competencyIds = competencyIds;
+    }
+
+    public List<Long> getDirectionIds() {
+        return directionIds;
+    }
+
+    public void setDirectionIds(List<Long> directionIds) {
+        this.directionIds = directionIds;
     }
 }

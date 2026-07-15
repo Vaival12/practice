@@ -1,5 +1,6 @@
 package com.practiceSystem.dto.response;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class VacancyResponse {
@@ -21,6 +22,10 @@ public class VacancyResponse {
     private String status;
 
     private LocalDateTime createdAt;
+
+    private LocalDate practiceStart;
+
+    private LocalDate practiceEnd;
 
     public Long getId() {
         return id;
@@ -92,5 +97,21 @@ public class VacancyResponse {
 
     public void setPracticeResult(String practiceResult) {
         this.practiceResult = practiceResult;
+    }
+
+    public LocalDate getPracticeStart() {
+        return practiceStart;
+    }
+
+    public void setPracticeStart(LocalDate practiceStart) {
+        this.practiceStart = practiceStart;
+    }
+
+    public LocalDate getPracticeEnd() {
+        return practiceEnd;
+    }
+
+    public void setPracticeEnd(LocalDate practiceEnd) {
+        this.practiceEnd = practiceEnd;
     }
 }

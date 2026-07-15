@@ -2,13 +2,25 @@ package com.practiceSystem.dto.request;
 
 import com.practiceSystem.Entity.Role;
 
+import java.time.LocalDate;
+
 public class UserRequest {
 
     private String email;
 
     private String password;
 
-    private Role role;
+    private String lastName;
+
+    private String firstName;
+
+    private String middleName;
+
+    private LocalDate birthDate;
+
+    private String phone;
+
+    private String  role;
 
     public String getEmail() {
         return email;
@@ -26,11 +38,51 @@ public class UserRequest {
         this.password = password;
     }
 
-    public Role getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String  role) {
         this.role = role;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

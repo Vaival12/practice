@@ -4,6 +4,7 @@ import com.practiceSystem.Entity.University;
 import com.practiceSystem.dao.University.UniversityRepository;
 import com.practiceSystem.dao.University.UniversityService;
 import com.practiceSystem.dto.request.UniversityRequest;
+import com.practiceSystem.security.AccessService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,12 +16,12 @@ public class UniversityServiceImpl implements UniversityService {
 
     private final UniversityRepository universityRepository;
 
+    private final AccessService accessService;
 
-
-    public UniversityServiceImpl(
-            UniversityRepository universityRepository) {
+    public UniversityServiceImpl(UniversityRepository universityRepository, AccessService accessService) {
 
         this.universityRepository = universityRepository;
+        this.accessService = accessService;
 
     }
 
@@ -56,7 +57,17 @@ public class UniversityServiceImpl implements UniversityService {
     @Override
     public void deleteById(Long id) {
 
-        universityRepository.deleteById(id);
+        University university =
+                universityRepository.findById(id)
+                        .orElseThrow();
+
+
+        if(!accessService.canEditUniversity(university)){
+            throw new RuntimeException("Нет доступа");
+        }
+
+
+        universityRepository.delete(university);
 
     }
 
@@ -85,6 +96,10 @@ public class UniversityServiceImpl implements UniversityService {
     public University update(Long id, UniversityRequest request) {
 
         University university = universityRepository.findById(id).orElseThrow();
+
+        if(!accessService.canEditUniversity(university)){
+            throw new RuntimeException("Нет доступа");
+        }
 
         university.setName(request.getName());
         university.setDescription(request.getDescription());

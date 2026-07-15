@@ -8,6 +8,7 @@ public class OrganizationModeratorResponse {
 
     private Long userId;
 
+    private Boolean isSuperModerator;
 
     public Long getId() {
         return id;
@@ -26,12 +27,19 @@ public class OrganizationModeratorResponse {
         this.organizationId = organizationId;
     }
 
-
     public Long getUserId() {
         return userId;
     }
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public Boolean getSuperModerator() {
+        return isSuperModerator;
+    }
+
+    public void setSuperModerator(Boolean superModerator) {
+        isSuperModerator = superModerator;
     }
 }

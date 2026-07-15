@@ -26,8 +26,8 @@ public class ApplicationController {
         ApplicationResponse response = new ApplicationResponse();
 
         response.setId(application.getId());
-        response.setStatus(application.getStatus().name());
-        response.setStudentName(application.getStudent().getFirstName());
+        response.setStatus(application.getStatus().getName());
+        response.setStudentName(application.getStudent().getUser().getFirstName());
         response.setVacancyTitle(application.getVacancy().getTitle());
         response.setComment(application.getComment());
         response.setCreatedAt(application.getCreatedAt());
@@ -44,8 +44,8 @@ public class ApplicationController {
         ApplicationResponse response = new ApplicationResponse();
 
         response.setId(application.getId());
-        response.setStatus(application.getStatus().name());
-        response.setStudentName(application.getStudent().getFirstName());
+        response.setStatus(application.getStatus().getName());
+        response.setStudentName(application.getStudent().getUser().getFirstName());
         response.setVacancyTitle(application.getVacancy().getTitle());
         response.setComment(application.getComment());
         response.setCreatedAt(application.getCreatedAt());
@@ -64,8 +64,8 @@ public class ApplicationController {
             ApplicationResponse response = new ApplicationResponse();
 
             response.setId(application.getId());
-            response.setStatus(application.getStatus().name());
-            response.setStudentName(application.getStudent().getFirstName());
+            response.setStatus(application.getStatus().getName());
+            response.setStudentName(application.getStudent().getUser().getFirstName());
             response.setVacancyTitle(application.getVacancy().getTitle());
             response.setComment(application.getComment());
             response.setCreatedAt(application.getCreatedAt());
@@ -85,7 +85,7 @@ public class ApplicationController {
         ApplicationResponse response = new ApplicationResponse();
 
         response.setId(application.getId());
-        response.setStatus(application.getStatus().name());
+        response.setStatus(application.getStatus().getName());
         response.setComment(application.getComment());
 
         return response;
@@ -99,8 +99,8 @@ public class ApplicationController {
         ApplicationResponse response = new ApplicationResponse();
 
         response.setId(application.getId());
-        response.setStatus(application.getStatus().name());
-        response.setStudentName(application.getStudent().getFirstName());
+        response.setStatus(application.getStatus().getName());
+        response.setStudentName(application.getStudent().getUser().getFirstName());
         response.setVacancyTitle(application.getVacancy().getTitle());
         response.setComment(application.getComment());
         response.setCreatedAt(application.getCreatedAt());

@@ -2,6 +2,7 @@ package com.practiceSystem.Entity;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -37,13 +38,28 @@ public class Vacancy {
 
     private LocalDateTime endDate;
 
-    @Enumerated(EnumType.STRING)
+    @ManyToOne
+    @JoinColumn(name = "status_id")
     private VacancyStatus status;
+
+    @Column(name = "practice_start")
+    private LocalDate practiceStart;
+
+    @Column(name = "practice_end")
+    private LocalDate practiceEnd;
 
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "vacancy")
     private List<Application> applications;
+
+    @ManyToMany
+    @JoinTable(name = "vacancy_competency", joinColumns = @JoinColumn(name = "vacancy_id"), inverseJoinColumns = @JoinColumn(name = "competency_id"))
+    private List<Competency> competencies;
+
+    @ManyToMany
+    @JoinTable(name = "vacancy_direction", joinColumns = @JoinColumn(name = "vacancy_id"), inverseJoinColumns = @JoinColumn(name = "direction_id"))
+    private List<Direction> directions;
 
     public Vacancy() {
     }
@@ -151,5 +167,37 @@ public class Vacancy {
 
     public void setStatus(VacancyStatus status) {
         this.status = status;
+    }
+
+    public LocalDate getPracticeStart() {
+        return practiceStart;
+    }
+
+    public void setPracticeStart(LocalDate practiceStart) {
+        this.practiceStart = practiceStart;
+    }
+
+    public LocalDate getPracticeEnd() {
+        return practiceEnd;
+    }
+
+    public void setPracticeEnd(LocalDate practiceEnd) {
+        this.practiceEnd = practiceEnd;
+    }
+
+    public List<Competency> getCompetencies() {
+        return competencies;
+    }
+
+    public void setCompetencies(List<Competency> competencies) {
+        this.competencies = competencies;
+    }
+
+    public List<Direction> getDirections() {
+        return directions;
+    }
+
+    public void setDirections(List<Direction> directions) {
+        this.directions = directions;
     }
 }

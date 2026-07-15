@@ -21,28 +21,25 @@ public class Student {
     @JoinColumn(name = "university_id")
     private University university;
 
-    private String lastName;
+    @ManyToMany
+    @JoinTable(name = "student_direction", joinColumns = @JoinColumn(name = "student_id"), inverseJoinColumns = @JoinColumn(name = "direction_id"))
+    private List<Direction> directions;
 
+    @Column(name = "practice_start")
+    private LocalDate practiceStart;
 
-    private String firstName;
-
-
-    private String middleName;
-
-
-    private LocalDate birthDate;
-
-
-    private String phone;
-
+    @Column(name = "practice_end")
+    private LocalDate practiceEnd;
 
     private Integer course;
 
-
     private String groupName;
 
-
     private String specialization;
+
+    @ManyToMany
+    @JoinTable(name = "student_competency", joinColumns = @JoinColumn(name = "student_id"), inverseJoinColumns = @JoinColumn(name = "competency_id"))
+    private List<Competency> competencies;
 
     public Long getId() {
         return id;
@@ -54,26 +51,6 @@ public class Student {
 
     public University getUniversity() {
         return university;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public LocalDate getBirthDate() {
-        return birthDate;
-    }
-
-    public String getPhone() {
-        return phone;
     }
 
     public Integer getCourse() {
@@ -100,26 +77,6 @@ public class Student {
         this.university = university;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
-    }
-
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     public void setCourse(Integer course) {
         this.course = course;
     }
@@ -130,5 +87,38 @@ public class Student {
 
     public void setSpecialization(String specialization) {
         this.specialization = specialization;
+    }
+
+    public LocalDate getPracticeStart() {
+        return practiceStart;
+    }
+
+    public void setPracticeStart(LocalDate practiceStart) {
+        this.practiceStart = practiceStart;
+    }
+
+    public LocalDate getPracticeEnd() {
+        return practiceEnd;
+    }
+
+    public void setPracticeEnd(LocalDate practiceEnd) {
+        this.practiceEnd = practiceEnd;
+    }
+
+    public List<Competency> getCompetencies() {
+        return competencies;
+    }
+
+    public void setCompetencies(List<Competency> competencies) {
+        this.competencies = competencies;
+
+    }
+
+    public List<Direction> getDirections() {
+        return directions;
+    }
+
+    public void setDirections(List<Direction> directions) {
+        this.directions = directions;
     }
 }

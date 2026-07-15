@@ -8,6 +8,8 @@ public class UniversityModeratorResponse {
 
     private Long userId;
 
+    private Boolean isSuperModerator;
+
 
     public Long getId() {
         return id;
@@ -33,5 +35,13 @@ public class UniversityModeratorResponse {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public Boolean getSuperModerator() {
+        return isSuperModerator;
+    }
+
+    public void setSuperModerator(Boolean superModerator) {
+        isSuperModerator = superModerator;
     }
 }

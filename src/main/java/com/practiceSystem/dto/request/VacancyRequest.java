@@ -1,6 +1,11 @@
 package com.practiceSystem.dto.request;
 
+import com.practiceSystem.Entity.VacancyStatus;
+import jakarta.persistence.Column;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class VacancyRequest {
 
@@ -19,6 +24,16 @@ public class VacancyRequest {
     private LocalDateTime startDate;
 
     private LocalDateTime endDate;
+
+    private LocalDate practiceStart;
+
+    private LocalDate practiceEnd;
+
+    private Long statusId;
+
+    private List<Long> competencyIds;
+
+    private List<Long> directionIds;
 
     public Long getOrganizationId() {
         return organizationId;
@@ -82,5 +97,45 @@ public class VacancyRequest {
 
     public void setPracticeResult(String practiceResult) {
         this.practiceResult = practiceResult;
+    }
+
+    public LocalDate getPracticeStart() {
+        return practiceStart;
+    }
+
+    public void setPracticeStart(LocalDate practiceStart) {
+        this.practiceStart = practiceStart;
+    }
+
+    public LocalDate getPracticeEnd() {
+        return practiceEnd;
+    }
+
+    public void setPracticeEnd(LocalDate practiceEnd) {
+        this.practiceEnd = practiceEnd;
+    }
+
+    public Long getStatusId() {
+        return statusId;
+    }
+
+    public void setStatusId(Long statusId) {
+        this.statusId = statusId;
+    }
+
+    public List<Long> getCompetencyIds() {
+        return competencyIds;
+    }
+
+    public void setCompetencyIds(List<Long> competencyIds) {
+        this.competencyIds = competencyIds;
+    }
+
+    public List<Long> getDirectionIds() {
+        return directionIds;
+    }
+
+    public void setDirectionIds(List<Long> directionIds) {
+        this.directionIds = directionIds;
     }
 }

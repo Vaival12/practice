@@ -8,6 +8,8 @@ public class ApplicationRequest {
 
     private String comment;
 
+    private Long statusId;
+
     public Long getStudentId() {
         return studentId;
     }
@@ -30,5 +32,13 @@ public class ApplicationRequest {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public Long getStatusId() {
+        return statusId;
+    }
+
+    public void setStatusId(Long statusId) {
+        this.statusId = statusId;
     }
 }

@@ -1,4 +1,4 @@
-package com.practiceSystem.dao.Control;
+package com.practiceSystem.Control;
 
 import org.springframework.web.bind.annotation.*;
 import com.practiceSystem.dto.request.UserRequest;

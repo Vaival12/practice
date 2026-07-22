@@ -1,6 +1,7 @@
 package com.practiceSystem.dao.UniversityModerator;
 
 import com.practiceSystem.Entity.OrganizationModerator;
+import com.practiceSystem.Entity.University;
 import com.practiceSystem.Entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.practiceSystem.Entity.UniversityModerator;
@@ -15,4 +16,7 @@ public interface UniversityModeratorRepository extends JpaRepository<UniversityM
 
     Optional<UniversityModerator> findByUser(User user);
 
+    List<UniversityModerator> findByUniversityAndApprovedFalse(University university);
+
+    List<UniversityModerator> findByApprovedFalse();
 }

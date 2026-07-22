@@ -1,4 +1,4 @@
-package com.practiceSystem.dao.Control;
+package com.practiceSystem.Control;
 
 import com.practiceSystem.Entity.ApplicationStatus;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +31,8 @@ public class ApplicationController {
         response.setVacancyTitle(application.getVacancy().getTitle());
         response.setComment(application.getComment());
         response.setCreatedAt(application.getCreatedAt());
+        response.setPracticeStart(application.getStudent().getPracticeStart());
+        response.setPracticeEnd(application.getStudent().getPracticeEnd());
 
         return response;
     }
@@ -49,6 +51,8 @@ public class ApplicationController {
         response.setVacancyTitle(application.getVacancy().getTitle());
         response.setComment(application.getComment());
         response.setCreatedAt(application.getCreatedAt());
+        response.setPracticeStart(application.getStudent().getPracticeStart());
+        response.setPracticeEnd(application.getStudent().getPracticeEnd());
 
         return response;
     }
@@ -69,6 +73,8 @@ public class ApplicationController {
             response.setVacancyTitle(application.getVacancy().getTitle());
             response.setComment(application.getComment());
             response.setCreatedAt(application.getCreatedAt());
+            response.setPracticeStart(application.getStudent().getPracticeStart());
+            response.setPracticeEnd(application.getStudent().getPracticeEnd());
 
             list.add(response);
         }
@@ -104,6 +110,8 @@ public class ApplicationController {
         response.setVacancyTitle(application.getVacancy().getTitle());
         response.setComment(application.getComment());
         response.setCreatedAt(application.getCreatedAt());
+        response.setPracticeStart(application.getStudent().getPracticeStart());
+        response.setPracticeEnd(application.getStudent().getPracticeEnd());
 
         return response;
     }

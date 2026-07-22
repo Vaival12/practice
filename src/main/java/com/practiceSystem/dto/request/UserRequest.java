@@ -22,6 +22,9 @@ public class UserRequest {
 
     private String  role;
 
+    private Long universityId;
+    private Long organizationId;
+
     public String getEmail() {
         return email;
     }
@@ -84,5 +87,21 @@ public class UserRequest {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public Long getUniversityId() {
+        return universityId;
+    }
+
+    public void setUniversityId(Long universityId) {
+        this.universityId = universityId;
+    }
+
+    public Long getOrganizationId() {
+        return organizationId;
+    }
+
+    public void setOrganizationId(Long organizationId) {
+        this.organizationId = organizationId;
     }
 }

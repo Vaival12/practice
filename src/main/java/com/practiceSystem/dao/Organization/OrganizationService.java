@@ -10,4 +10,8 @@ public interface OrganizationService extends BaseService<Organization, Long> {
 
     Organization update(Long id, OrganizationRequest request);
 
+    Organization getCurrentOrganization();
+
+    Organization updateCurrentOrganization(OrganizationRequest request);
+
 }

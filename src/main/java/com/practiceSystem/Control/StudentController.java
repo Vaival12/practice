@@ -1,4 +1,4 @@
-package com.practiceSystem.dao.Control;
+package com.practiceSystem.Control;
 
 import org.springframework.web.bind.annotation.*;
 import com.practiceSystem.Entity.Student;
@@ -139,5 +139,55 @@ public class StudentController {
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id){ service.deleteById(id); }
+
+    @PostMapping("/apply/{universityId}")
+    public StudentResponse apply(@PathVariable Long universityId) {
+
+        Student student = service.apply(universityId);
+
+        StudentResponse response = new StudentResponse();
+
+        response.setId(student.getId());
+        response.setUserId(student.getUser().getId());
+        response.setUniversityId(student.getUniversity().getId());
+        response.setApproved(student.getApproved());
+
+        return response;
+    }
+
+    @GetMapping("/pending")
+    public List<StudentResponse> getPending() {
+
+        List<StudentResponse> response = new ArrayList<>();
+
+        for (Student student : service.getPending()) {
+
+            StudentResponse item = new StudentResponse();
+
+            item.setId(student.getId());
+            item.setUserId(student.getUser().getId());
+            item.setUniversityId(student.getUniversity().getId());
+            item.setApproved(student.getApproved());
+
+            response.add(item);
+        }
+
+        return response;
+    }
+
+    @PutMapping("/{id}/approve")
+    public StudentResponse approve(@PathVariable Long id) {
+
+        Student student = service.approve(id);
+
+        StudentResponse response = new StudentResponse();
+
+        response.setId(student.getId());
+        response.setUserId(student.getUser().getId());
+        response.setUniversityId(student.getUniversity().getId());
+        response.setApproved(student.getApproved());
+
+        return response;
+    }
 
 }

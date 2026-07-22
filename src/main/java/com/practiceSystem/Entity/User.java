@@ -48,6 +48,18 @@ public class User {
     @OneToOne(mappedBy = "user")
     private Student student;
 
+    @OneToOne(mappedBy = "user")
+    private UniversityModerator universityModerator;
+
+    @OneToOne(mappedBy = "user")
+    private UniversitySuperModerator universitySuperModerator;
+
+    @OneToOne(mappedBy = "user")
+    private OrganizationModerator organizationModerator;
+
+    @OneToOne(mappedBy = "user")
+    private OrganizationSuperModerator organizationSuperModerator;
+
     public User() {
     }
 
@@ -186,5 +198,35 @@ public class User {
         this.birthDate = birthDate;
     }
 
+    public UniversityModerator getUniversityModerator() {
+        return universityModerator;
+    }
 
+    public void setUniversityModerator(UniversityModerator universityModerator) {
+        this.universityModerator = universityModerator;
+    }
+
+    public UniversitySuperModerator getUniversitySuperModerator() {
+        return universitySuperModerator;
+    }
+
+    public void setUniversitySuperModerator(UniversitySuperModerator universitySuperModerator) {
+        this.universitySuperModerator = universitySuperModerator;
+    }
+
+    public OrganizationModerator getOrganizationModerator() {
+        return organizationModerator;
+    }
+
+    public void setOrganizationModerator(OrganizationModerator organizationModerator) {
+        this.organizationModerator = organizationModerator;
+    }
+
+    public OrganizationSuperModerator getOrganizationSuperModerator() {
+        return organizationSuperModerator;
+    }
+
+    public void setOrganizationSuperModerator(OrganizationSuperModerator organizationSuperModerator) {
+        this.organizationSuperModerator = organizationSuperModerator;
+    }
 }

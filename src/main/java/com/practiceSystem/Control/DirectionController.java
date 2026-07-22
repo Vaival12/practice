@@ -1,4 +1,4 @@
-package com.practiceSystem.dao.Control;
+package com.practiceSystem.Control;
 
 import com.practiceSystem.Entity.Direction;
 import com.practiceSystem.dao.Direction.DirectionService;

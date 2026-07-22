@@ -1,4 +1,4 @@
-package com.practiceSystem.dao.Control;
+package com.practiceSystem.Control;
 
 import com.practiceSystem.Entity.OrganizationModerator;
 import com.practiceSystem.dao.OrganizationModerator.OrganizationModeratorService;
@@ -67,6 +67,56 @@ public class OrganizationModeratorController {
         return response;
     }
 
+    @PutMapping("/{id}")
+    public OrganizationModeratorResponse update(
+            @PathVariable Long id,
+            @RequestBody OrganizationModeratorRequest request
+    ) {
+
+        OrganizationModerator moderator =
+                service.update(id, request);
+
+        OrganizationModeratorResponse response =
+                new OrganizationModeratorResponse();
+
+        response.setId(moderator.getId());
+
+        response.setOrganizationId(
+                moderator
+                        .getOrganization()
+                        .getId()
+        );
+
+        response.setEmail(
+                moderator
+                        .getUser()
+                        .getEmail()
+        );
+
+        response.setFirstName(
+                moderator
+                        .getUser()
+                        .getFirstName()
+        );
+
+        response.setLastName(
+                moderator
+                        .getUser()
+                        .getLastName()
+        );
+
+        response.setApproved(
+                moderator.getApproved()
+        );
+
+        response.setUserId(
+                moderator
+                        .getUser()
+                        .getId()
+        );
+
+        return response;
+    }
 
     @GetMapping("/organization/{id}")
     public List<OrganizationModeratorResponse> getByOrganization(@PathVariable Long id){
@@ -87,6 +137,45 @@ public class OrganizationModeratorController {
         return list;
     }
 
+    @GetMapping("/pending")
+    public List<OrganizationModeratorResponse> getPending(){
+
+        List<OrganizationModerator> moderators = service.getPending();
+        List<OrganizationModeratorResponse> list = new ArrayList<>();
+
+        for(OrganizationModerator moderator : moderators){
+
+            OrganizationModeratorResponse response = new OrganizationModeratorResponse();
+
+            response.setId(moderator.getId());
+            response.setOrganizationId(moderator.getOrganization().getId());
+            response.setUserId(moderator.getUser().getId());
+            response.setApproved(moderator.getApproved());
+
+            list.add(response);
+        }
+
+
+        return list;
+    }
+
+    @PutMapping("/{id}/approve")
+    public OrganizationModeratorResponse approve(@PathVariable Long id){
+
+        OrganizationModerator moderator = service.approve(id);
+
+        OrganizationModeratorResponse response = new OrganizationModeratorResponse();
+
+
+        response.setId(moderator.getId());
+        response.setOrganizationId(moderator.getOrganization().getId());
+        response.setUserId(moderator.getUser().getId());
+
+        response.setApproved(moderator.getApproved());
+
+
+        return response;
+    }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id){

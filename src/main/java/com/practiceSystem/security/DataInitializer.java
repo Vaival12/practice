@@ -25,6 +25,7 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) {
 
+        createRole("USER");
 
         createRole("STUDENT");
 

@@ -4,6 +4,7 @@ import com.practiceSystem.Entity.*;
 import com.practiceSystem.dao.Competency.CompetencyRepository;
 import com.practiceSystem.dao.Direction.DirectionRepository;
 import com.practiceSystem.dao.Organization.OrganizationRepository;
+import com.practiceSystem.dao.Organization.OrganizationService;
 import com.practiceSystem.dao.Vacancy.VacancyRepository;
 import com.practiceSystem.dao.Vacancy.VacancyService;
 import com.practiceSystem.dao.VacancyStatus.VacancyStatusRepository;
@@ -18,18 +19,14 @@ import java.util.Optional;
 public class VacancyServiceImpl implements VacancyService {
 
     private final VacancyRepository vacancyRepository;
-
     private final OrganizationRepository organizationRepository;
-
     private final AccessService accessService;
-
     private final VacancyStatusRepository statusRepository;
-
     private final CompetencyRepository competencyRepository;
-
     private final DirectionRepository directionRepository;
+    private final OrganizationService organizationService;
 
-    public VacancyServiceImpl(VacancyRepository vacancyRepository, OrganizationRepository organizationRepository,AccessService accessService, VacancyStatusRepository statusRepository, CompetencyRepository competencyRepository, DirectionRepository directionRepository) {
+    public VacancyServiceImpl(VacancyRepository vacancyRepository, OrganizationRepository organizationRepository, AccessService accessService, VacancyStatusRepository statusRepository, CompetencyRepository competencyRepository, DirectionRepository directionRepository, OrganizationService organizationService) {
 
         this.vacancyRepository = vacancyRepository;
         this.organizationRepository = organizationRepository;
@@ -37,7 +34,7 @@ public class VacancyServiceImpl implements VacancyService {
         this.statusRepository = statusRepository;
         this.competencyRepository = competencyRepository;
         this.directionRepository = directionRepository;
-
+        this.organizationService = organizationService;
     }
 
     @Override
@@ -97,6 +94,7 @@ public class VacancyServiceImpl implements VacancyService {
         vacancy.setStatus(status);
         vacancy.setPracticeStart(request.getPracticeStart());
         vacancy.setPracticeEnd(request.getPracticeEnd());
+        vacancy.setMaxStudents(request.getMaxStudents());
 
 
         return vacancyRepository.save(vacancy);
@@ -108,6 +106,13 @@ public class VacancyServiceImpl implements VacancyService {
 
         Vacancy vacancy = vacancyRepository.findById(id).orElseThrow();
 
+        Organization currentOrganization = organizationService.getCurrentOrganization();
+
+        if (!vacancy.getOrganization().getId().equals(currentOrganization.getId())) {
+
+            throw new RuntimeException("Нет доступа");
+        }
+
         vacancy.setTitle(request.getTitle());
         vacancy.setDescription(request.getDescription());
         vacancy.setRequirements(request.getRequirements());
@@ -115,25 +120,29 @@ public class VacancyServiceImpl implements VacancyService {
         vacancy.setPracticeResult(request.getPracticeResult());
         vacancy.setPracticeStart(request.getPracticeStart());
         vacancy.setPracticeEnd(request.getPracticeEnd());
+        vacancy.setMaxStudents(request.getMaxStudents());
 
         List<Competency> competencies = competencyRepository.findAllById(request.getCompetencyIds());
+
         vacancy.setCompetencies(competencies);
 
         List<Direction> directions = directionRepository.findAllById(request.getDirectionIds());
+
         vacancy.setDirections(directions);
 
-        if(!accessService.canEditVacancy(vacancy)){
-            throw new RuntimeException("Нет доступа");
-        }
-
         return vacancyRepository.save(vacancy);
-
     }
 
     @Override
-    public Vacancy updateStatus(Long id, VacancyStatus status){
+    public Vacancy updateStatus(Long id, VacancyStatus status) {
 
-        Vacancy vacancy = vacancyRepository.findById(id).orElseThrow();
+        Vacancy vacancy = vacancyRepository.findById(id).orElseThrow(() -> new RuntimeException("Вакансия не найдена"));
+
+        Organization currentOrganization = organizationService.getCurrentOrganization();
+
+        if (!vacancy.getOrganization().getId().equals(currentOrganization.getId())) {
+            throw new RuntimeException("Нет доступа");
+        }
 
         vacancy.setStatus(status);
 

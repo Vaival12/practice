@@ -1,4 +1,4 @@
-package com.practiceSystem.dao.Control;
+package com.practiceSystem.Control;
 
 import org.springframework.web.bind.annotation.*;
 import com.practiceSystem.dto.request.OrganizationRequest;
@@ -33,6 +33,8 @@ public class OrganizationController {
         OrganizationResponse response = new OrganizationResponse();
         response.setId(organization.getId());
         response.setName(organization.getName());
+        response.setEmail(organization.getEmail());
+        response.setPhone(organization.getPhone());
         response.setDescription(organization.getDescription());
         response.setAddress(organization.getAddress());
         response.setWebsite(organization.getWebsite());
@@ -48,6 +50,8 @@ public class OrganizationController {
         response.setId(organization.getId());
         response.setName(organization.getName());
         response.setDescription(organization.getDescription());
+        response.setEmail(organization.getEmail());
+        response.setPhone(organization.getPhone());
         response.setAddress(organization.getAddress());
         response.setWebsite(organization.getWebsite());
 
@@ -68,6 +72,8 @@ public class OrganizationController {
             response.setName(organization.getName());
             response.setDescription(organization.getDescription());
             response.setAddress(organization.getAddress());
+            response.setEmail(organization.getEmail());
+            response.setPhone(organization.getPhone());
             response.setWebsite(organization.getWebsite());
             result.add(response);
         }
@@ -83,6 +89,8 @@ public class OrganizationController {
         OrganizationResponse response = new OrganizationResponse();
         response.setId(organization.getId());
         response.setName(organization.getName());
+        response.setEmail(organization.getEmail());
+        response.setPhone(organization.getPhone());
         response.setDescription(organization.getDescription());
         response.setAddress(organization.getAddress());
         response.setWebsite(organization.getWebsite());
@@ -110,8 +118,7 @@ public class OrganizationController {
     }
 
     @PutMapping("/me")
-    public OrganizationResponse updateMe(
-            @RequestBody OrganizationRequest request) {
+    public OrganizationResponse updateMe(@RequestBody OrganizationRequest request) {
 
         Organization organization = organizationService.updateCurrentOrganization(request);
 

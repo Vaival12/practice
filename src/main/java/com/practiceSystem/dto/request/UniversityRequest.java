@@ -14,6 +14,14 @@ public class UniversityRequest {
 
     private String phone;
 
+    private String moderatorEmail;
+
+    private String moderatorPassword;
+
+    private String moderatorFirstName;
+
+    private String moderatorLastName;
+
     public String getName() {
         return name;
     }

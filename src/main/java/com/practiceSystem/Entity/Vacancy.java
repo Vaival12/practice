@@ -61,6 +61,9 @@ public class Vacancy {
     @JoinTable(name = "vacancy_direction", joinColumns = @JoinColumn(name = "vacancy_id"), inverseJoinColumns = @JoinColumn(name = "direction_id"))
     private List<Direction> directions;
 
+    @Column(nullable = false)
+    private Integer maxStudents;
+
     public Vacancy() {
     }
 
@@ -199,5 +202,13 @@ public class Vacancy {
 
     public void setDirections(List<Direction> directions) {
         this.directions = directions;
+    }
+
+    public Integer getMaxStudents() {
+        return maxStudents;
+    }
+
+    public void setMaxStudents(Integer maxStudents) {
+        this.maxStudents = maxStudents;
     }
 }

@@ -8,13 +8,14 @@ import java.util.List;
 import java.util.Optional;
 
 public interface OrganizationModeratorService extends BaseService<OrganizationModerator, Long> {
+
     OrganizationModerator create(OrganizationModeratorRequest request);
-
-    Optional<OrganizationModerator> findById(Long id);
-
-    List<OrganizationModerator> findAll();
 
     List<OrganizationModerator> findByOrganizationId(Long organizationId);
 
-    void deleteById(Long id);
+    OrganizationModerator update(Long id, OrganizationModeratorRequest request);
+
+    List<OrganizationModerator> getPending();
+
+    OrganizationModerator approve(Long id);
 }

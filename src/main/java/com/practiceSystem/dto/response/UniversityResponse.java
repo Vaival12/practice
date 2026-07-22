@@ -71,4 +71,5 @@ public class UniversityResponse {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
 }

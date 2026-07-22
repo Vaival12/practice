@@ -67,30 +67,50 @@ public class AccessServiceImpl implements AccessService {
 
 
     @Override
-    public boolean canViewApplication(Application application){
+    public boolean canViewApplication(Application application) {
 
         User user = getCurrentUser();
 
-        if(user.getRole().getName().equals("ADMIN")){
+        if (user.getRole().getName().equals("ADMIN")) {
             return true;
         }
 
-        if(user.getRole().getName().equals("STUDENT")){
-
+        if (user.getRole().getName().equals("STUDENT")) {
             return application.getStudent()
                     .getUser()
                     .getId()
                     .equals(user.getId());
         }
 
+        if (user.getRole().getName().equals("ORGANIZATION_SUPER_MODERATOR") ||
+                user.getRole().getName().equals("ORGANIZATION_MODERATOR")) {
 
-        if(user.getRole().getName().equals("UNIVERSITY_SUPER_MODERATOR") ||
-                user.getRole().getName().equals("UNIVERSITY_MODERATOR")){
-
-
-            return application.getVacancy().getOrganization().getModerators().stream().anyMatch(moderator -> moderator.getUser().getId().equals(user.getId()));
+            return application.getVacancy()
+                    .getOrganization()
+                    .getModerators()
+                    .stream()
+                    .anyMatch(moderator ->
+                            moderator.getUser()
+                                    .getId()
+                                    .equals(user.getId())
+                    );
         }
 
+        return false;
+    }
+
+    @Override
+    public boolean canCreateApplication(Student student) {
+
+        User user = getCurrentUser();
+
+        if (user.getRole().getName().equals("ADMIN")) {
+            return true;
+        }
+
+        if (user.getRole().getName().equals("STUDENT")) {
+            return student.getUser().getId().equals(user.getId());
+        }
 
         return false;
     }
@@ -122,10 +142,29 @@ public class AccessServiceImpl implements AccessService {
 
         User user = getCurrentUser();
 
-        if (user.getRole().getName().equals("ADMIN")) {return true;}
-        if (user.getRole().getName().equals("STUDENT")) {return false;}
-        if (user.getRole().getName().equals("ORGANIZATION_SUPER_MODERATOR") || user.getRole().getName().equals("ORGANIZATION_MODERATOR")) {
-            return application.getVacancy().getOrganization().getModerators().stream().anyMatch(moderator -> moderator.getUser().getId().equals(user.getId()));
+        if (user.getRole().getName().equals("ADMIN")) {
+            return true;
+        }
+
+        if (user.getRole().getName().equals("STUDENT")) {
+            return application.getStudent()
+                    .getUser()
+                    .getId()
+                    .equals(user.getId());
+        }
+
+        if (user.getRole().getName().equals("ORGANIZATION_SUPER_MODERATOR") ||
+                user.getRole().getName().equals("ORGANIZATION_MODERATOR")) {
+
+            return application.getVacancy()
+                    .getOrganization()
+                    .getModerators()
+                    .stream()
+                    .anyMatch(moderator ->
+                            moderator.getUser()
+                                    .getId()
+                                    .equals(user.getId())
+                    );
         }
 
         return false;
@@ -197,6 +236,51 @@ public class AccessServiceImpl implements AccessService {
                     );
         }
 
+
+        return false;
+    }
+
+    @Override
+    public boolean canDeleteApplication(Application application) {
+
+        User user = getCurrentUser();
+
+        if (user.getRole().getName().equals("ADMIN")) {
+            return true;
+        }
+
+        if (user.getRole().getName().equals("STUDENT")) {
+            return application.getStudent()
+                    .getUser()
+                    .getId()
+                    .equals(user.getId());
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean canEditApplicationStatus(Application application) {
+
+        User user = getCurrentUser();
+
+        if (user.getRole().getName().equals("ADMIN")) {
+            return true;
+        }
+
+        if (user.getRole().getName().equals("ORGANIZATION_SUPER_MODERATOR") ||
+                user.getRole().getName().equals("ORGANIZATION_MODERATOR")) {
+
+            return application.getVacancy()
+                    .getOrganization()
+                    .getModerators()
+                    .stream()
+                    .anyMatch(moderator ->
+                            moderator.getUser()
+                                    .getId()
+                                    .equals(user.getId())
+                    );
+        }
 
         return false;
     }

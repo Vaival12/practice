@@ -1,4 +1,4 @@
-package com.practiceSystem.ApplicationStatus;
+package com.practiceSystem.dao.ApplicationStatus;
 
 import com.practiceSystem.Entity.ApplicationStatus;
 import org.springframework.data.jpa.repository.JpaRepository;

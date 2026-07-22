@@ -1,6 +1,7 @@
 package com.practiceSystem.dto.request;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class StudentRequest {
@@ -19,9 +20,9 @@ public class StudentRequest {
 
     private LocalDate practiceEnd;
 
-    private List<Long> competencyIds;
+    private List<Long> competencyIds = new ArrayList<>();;
 
-    private List<Long> directionIds;
+    private List<Long> directionIds = new ArrayList<>();;
 
     public Long getUserId() {
         return userId;

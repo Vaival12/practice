@@ -35,6 +35,8 @@ public class VacancyRequest {
 
     private List<Long> directionIds;
 
+    private Integer maxStudents;
+
     public Long getOrganizationId() {
         return organizationId;
     }
@@ -137,5 +139,13 @@ public class VacancyRequest {
 
     public void setDirectionIds(List<Long> directionIds) {
         this.directionIds = directionIds;
+    }
+
+    public Integer getMaxStudents() {
+        return maxStudents;
+    }
+
+    public void setMaxStudents(Integer maxStudents) {
+        this.maxStudents = maxStudents;
     }
 }

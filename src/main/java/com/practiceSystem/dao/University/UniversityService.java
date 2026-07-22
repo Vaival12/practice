@@ -12,4 +12,9 @@ public interface UniversityService extends BaseService<University, Long> {
     University create(UniversityRequest request);
 
     University update(Long id, UniversityRequest request);
+
+    University getCurrentUniversity();
+
+    University updateCurrentUniversity(UniversityRequest request);
+
 }

@@ -17,4 +17,7 @@ public interface UserService extends BaseService<User, Long> {
 
     User update(Long id, UserRequest request);
 
+    User getCurrentUser();
+
+    User updateCurrentUser(UserRequest request);
 }

@@ -24,4 +24,9 @@ public interface AccessService {
 
     boolean canEditUniversity(University university);
 
+    boolean canCreateApplication(Student student);
+
+    boolean canDeleteApplication(Application application);
+
+    boolean canEditApplicationStatus(Application application);
 }

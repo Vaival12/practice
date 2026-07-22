@@ -1,7 +1,8 @@
-package com.practiceSystem.dao.Control;
+package com.practiceSystem.Control;
 
 import com.practiceSystem.Entity.UniversityModerator;
 import com.practiceSystem.dao.UniversityModerator.UniversityModeratorService;
+import com.practiceSystem.dto.response.UniversityModeratorResponse;
 import org.springframework.web.bind.annotation.*;
 import com.practiceSystem.dto.request.UniversityRequest;
 import com.practiceSystem.dto.response.UniversityResponse;
@@ -126,14 +127,11 @@ public class UniversityController {
     }
 
     @PutMapping("/me")
-    public UniversityResponse updateMe(
-            @RequestBody UniversityRequest request){
+    public UniversityResponse updateMe(@RequestBody UniversityRequest request){
 
-        University university =
-                universityService.updateCurrentUniversity(request);
+        University university = universityService.updateCurrentUniversity(request);
 
-        UniversityResponse response =
-                new UniversityResponse();
+        UniversityResponse response = new UniversityResponse();
 
         response.setId(university.getId());
         response.setName(university.getName());

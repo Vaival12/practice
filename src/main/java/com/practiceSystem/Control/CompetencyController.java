@@ -1,4 +1,4 @@
-package com.practiceSystem.dao.Control;
+package com.practiceSystem.Control;
 
 import com.practiceSystem.Entity.Competency;
 import com.practiceSystem.dao.Competency.CompetencyService;

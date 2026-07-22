@@ -41,6 +41,9 @@ public class Student {
     @JoinTable(name = "student_competency", joinColumns = @JoinColumn(name = "student_id"), inverseJoinColumns = @JoinColumn(name = "competency_id"))
     private List<Competency> competencies;
 
+    @Column(nullable = false)
+    private Boolean approved = false;
+
     public Long getId() {
         return id;
     }
@@ -120,5 +123,13 @@ public class Student {
 
     public void setDirections(List<Direction> directions) {
         this.directions = directions;
+    }
+
+    public Boolean getApproved() {
+        return approved;
+    }
+
+    public void setApproved(Boolean approved) {
+        this.approved = approved;
     }
 }

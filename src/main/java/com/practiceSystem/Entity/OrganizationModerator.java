@@ -19,6 +19,9 @@ public class OrganizationModerator {
     @JoinColumn(name = "organization_id", nullable = false)
     private Organization organization;
 
+    @Column(nullable = false)
+    private Boolean approved = false;
+
     public OrganizationModerator() {
     }
 
@@ -44,5 +47,13 @@ public class OrganizationModerator {
 
     public void setOrganization(Organization organization) {
         this.organization = organization;
+    }
+
+    public Boolean getApproved() {
+        return approved;
+    }
+
+    public void setApproved(Boolean approved) {
+        this.approved = approved;
     }
 }

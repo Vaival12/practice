@@ -27,6 +27,8 @@ public class VacancyResponse {
 
     private LocalDate practiceEnd;
 
+    private Integer maxStudents;
+
     public Long getId() {
         return id;
     }
@@ -113,5 +115,13 @@ public class VacancyResponse {
 
     public void setPracticeEnd(LocalDate practiceEnd) {
         this.practiceEnd = practiceEnd;
+    }
+
+    public Integer getMaxStudents() {
+        return maxStudents;
+    }
+
+    public void setMaxStudents(Integer maxStudents) {
+        this.maxStudents = maxStudents;
     }
 }

@@ -4,12 +4,17 @@ public class UniversityModeratorResponse {
 
     private Long id;
 
-    private Long universityId;
-
     private Long userId;
 
-    private Boolean isSuperModerator;
+    private Long universityId;
 
+    private String firstName;
+
+    private String lastName;
+
+    private String email;
+
+    private Boolean approved;
 
     public Long getId() {
         return id;
@@ -19,16 +24,6 @@ public class UniversityModeratorResponse {
         this.id = id;
     }
 
-
-    public Long getUniversityId() {
-        return universityId;
-    }
-
-    public void setUniversityId(Long universityId) {
-        this.universityId = universityId;
-    }
-
-
     public Long getUserId() {
         return userId;
     }
@@ -37,11 +32,43 @@ public class UniversityModeratorResponse {
         this.userId = userId;
     }
 
-    public Boolean getSuperModerator() {
-        return isSuperModerator;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setSuperModerator(Boolean superModerator) {
-        isSuperModerator = superModerator;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Boolean getApproved() {
+        return approved;
+    }
+
+    public void setApproved(Boolean approved) {
+        this.approved = approved;
+    }
+
+    public Long getUniversityId() {
+        return universityId;
+    }
+
+    public void setUniversityId(Long universityId) {
+        this.universityId = universityId;
     }
 }

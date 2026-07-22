@@ -1,16 +1,16 @@
 package com.practiceSystem.ApplicationServices;
 
-import com.practiceSystem.ApplicationStatus.ApplicationStatusRepository;
-import com.practiceSystem.Entity.Application;
-import com.practiceSystem.Entity.ApplicationStatus;
-import com.practiceSystem.Entity.Student;
-import com.practiceSystem.Entity.Vacancy;
+import com.practiceSystem.Entity.*;
+import com.practiceSystem.dao.ApplicationStatus.ApplicationStatusRepository;
 import com.practiceSystem.dao.Application.ApplicationRepository;
 import com.practiceSystem.dao.Application.ApplicationService;
 import com.practiceSystem.dao.Student.StudentRepository;
+import com.practiceSystem.dao.User.UserRepository;
 import com.practiceSystem.dao.Vacancy.VacancyRepository;
 import com.practiceSystem.dto.request.ApplicationRequest;
 import com.practiceSystem.security.AccessService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,8 +26,9 @@ public class ApplicationServiceImpl implements ApplicationService {
     private final VacancyRepository vacancyRepository;
     private final AccessService accessService;
     private final ApplicationStatusRepository statusRepository;
+    private final UserRepository userRepository;
 
-    public ApplicationServiceImpl(ApplicationRepository applicationRepository, StudentRepository studentRepository, VacancyRepository vacancyRepository, AccessService accessService,ApplicationStatusRepository statusRepository) {
+    public ApplicationServiceImpl(ApplicationRepository applicationRepository, StudentRepository studentRepository, VacancyRepository vacancyRepository, AccessService accessService, ApplicationStatusRepository statusRepository, UserRepository userRepository) {
 
         this.applicationRepository = applicationRepository;
         this.studentRepository = studentRepository;
@@ -35,6 +36,7 @@ public class ApplicationServiceImpl implements ApplicationService {
         this.accessService = accessService;
         this.statusRepository = statusRepository;
 
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -78,17 +80,68 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     public Application create(ApplicationRequest request) {
 
-        Student student = studentRepository.findById(request.getStudentId()).orElseThrow();
+        Authentication authentication =
+                SecurityContextHolder
+                        .getContext()
+                        .getAuthentication();
 
-        Vacancy vacancy = vacancyRepository.findById(request.getVacancyId()).orElseThrow();
+
+        User user =
+                userRepository
+                        .findByEmail(authentication.getName())
+                        .orElseThrow(() ->
+                                new RuntimeException("Пользователь не найден")
+                        );
+
+
+        Student student =
+                studentRepository
+                        .findByUser(user)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "Профиль студента не найден"
+                                )
+                        );
+
+
+        Vacancy vacancy =
+                vacancyRepository
+                        .findById(request.getVacancyId())
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "Вакансия не найдена"
+                                )
+                        );
+
+        boolean alreadyApplied = applicationRepository.existsByStudentId(student.getId());
+
+        if (alreadyApplied) {
+            throw new RuntimeException("Студент уже подал заявку на вакансию");
+        }
+
+        long applicationsCount = applicationRepository.countByVacancyId(vacancy.getId());
+
+        if (vacancy.getMaxStudents() != null && applicationsCount >= vacancy.getMaxStudents()) {
+            throw new RuntimeException("На вакансию уже набрано максимальное количество студентов");}
 
         ApplicationStatus status = statusRepository.findByName("APPLIED");
+
+
+        if (status == null) {
+            throw new RuntimeException("Статус APPLIED не найден");
+        }
+
 
         Application application = new Application();
 
         application.setStudent(student);
+
         application.setVacancy(vacancy);
+
         application.setStatus(status);
+
+        application.setComment(request.getComment());
+
 
         return applicationRepository.save(application);
     }
@@ -96,9 +149,11 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     public Application updateStatus(Long id, ApplicationStatus status) {
 
-        Application application = applicationRepository.findById(id).orElseThrow();
+        Application application =
+                applicationRepository.findById(id)
+                        .orElseThrow();
 
-        if(!accessService.canEditApplication(application)){
+        if (!accessService.canEditApplicationStatus(application)) {
             throw new RuntimeException("Нет доступа");
         }
 

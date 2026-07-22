@@ -31,6 +31,9 @@ public class University {
     @OneToMany(mappedBy = "university")
     private List<UniversityModerator> moderators;
 
+    @OneToOne(mappedBy = "university")
+    private UniversitySuperModerator superModerator;
+
     public University() {
     }
 
@@ -113,5 +116,13 @@ public class University {
 
     public void setModerators(List<UniversityModerator> moderators) {
         this.moderators = moderators;
+    }
+
+    public UniversitySuperModerator getSuperModerator() {
+        return superModerator;
+    }
+
+    public void setSuperModerator(UniversitySuperModerator superModerator) {
+        this.superModerator = superModerator;
     }
 }

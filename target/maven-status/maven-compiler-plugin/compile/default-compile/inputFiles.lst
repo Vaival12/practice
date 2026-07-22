@@ -12,7 +12,6 @@ C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem
 C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\ApplicationServices\UserDetailsServiceImpl.java
 C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\ApplicationServices\UserServiceImpl.java
 C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\ApplicationServices\VacancyServiceImpl.java
-C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\ApplicationStatus\ApplicationStatusRepository.java
 C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\Control\ApplicationController.java
 C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\Control\AuthenticationController.java
 C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\Control\CompetencyController.java
@@ -26,6 +25,7 @@ C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem
 C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\Control\VacancyController.java
 C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\dao\Application\ApplicationRepository.java
 C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\dao\Application\ApplicationService.java
+C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\dao\ApplicationStatus\ApplicationStatusRepository.java
 C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\dao\Authentication\AuthenticationService.java
 C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\dao\base\BaseService.java
 C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\dao\Competency\CompetencyRepository.java
@@ -36,6 +36,7 @@ C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem
 C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\dao\Organization\OrganizationService.java
 C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\dao\OrganizationModerator\OrganizationModeratorRepository.java
 C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\dao\OrganizationModerator\OrganizationModeratorService.java
+C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\dao\OrganizationSuperModerator\OrganizationSuperModeratorRepository.java
 C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\dao\Permission\PermissionService.java
 C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\dao\Role\RoleRepository.java
 C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\dao\Student\StudentRepository.java
@@ -44,6 +45,7 @@ C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem
 C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\dao\University\UniversityService.java
 C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\dao\UniversityModerator\UniversityModeratorRepository.java
 C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\dao\UniversityModerator\UniversityModeratorService.java
+C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\dao\UniversitySuperModeratorRepository\UniversitySuperModeratorRepository.java
 C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\dao\User\UserRepository.java
 C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\dao\User\UserService.java
 C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\dao\Vacancy\VacancyRepository.java
@@ -74,10 +76,12 @@ C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem
 C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\Entity\Direction.java
 C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\Entity\Organization.java
 C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\Entity\OrganizationModerator.java
+C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\Entity\OrganizationSuperModerator.java
 C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\Entity\Role.java
 C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\Entity\Student.java
 C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\Entity\University.java
 C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\Entity\UniversityModerator.java
+C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\Entity\UniversitySuperModerator.java
 C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\Entity\User.java
 C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\Entity\Vacancy.java
 C:\Users\Админ\IdeaProjects\practiceSystem\src\main\java\com\practiceSystem\Entity\VacancyStatus.java

@@ -1,5 +1,6 @@
 package com.practiceSystem.dao.OrganizationModerator;
 
+import com.practiceSystem.Entity.Organization;
 import com.practiceSystem.Entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.practiceSystem.Entity.OrganizationModerator;
@@ -14,4 +15,9 @@ public interface OrganizationModeratorRepository extends JpaRepository<Organizat
     Optional<OrganizationModerator> findByOrganizationIdAndUserId(Long organizationId, Long userId);
 
     Optional<OrganizationModerator> findByUser(User user);
+
+    List<OrganizationModerator> findByApprovedFalse();
+
+    List<OrganizationModerator> findByOrganizationAndApprovedFalse(Organization organization);
+
 }

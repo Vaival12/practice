@@ -16,7 +16,7 @@ public class Application {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "student_id", nullable = false)
+    @JoinColumn(name = "student_id", nullable = false, unique = true)
     private Student student;
 
     @OneToOne

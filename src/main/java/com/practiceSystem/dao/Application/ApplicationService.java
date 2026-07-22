@@ -10,5 +10,4 @@ public interface ApplicationService extends BaseService<Application, Long> {
     Application updateStatus(Long id, ApplicationStatus status);
     Application update(Long id, ApplicationRequest request);
 
-
 }

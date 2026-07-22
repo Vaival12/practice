@@ -19,6 +19,9 @@ public class UniversityModerator {
     @JoinColumn(name = "university_id", nullable = false)
     private University university;
 
+    @Column(nullable = false)
+    private Boolean approved = false;
+
     public UniversityModerator() {
     }
 
@@ -44,5 +47,13 @@ public class UniversityModerator {
 
     public void setUniversity(University university) {
         this.university = university;
+    }
+
+    public Boolean getApproved() {
+        return approved;
+    }
+
+    public void setApproved(Boolean approved) {
+        this.approved = approved;
     }
 }

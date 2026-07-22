@@ -1,4 +1,4 @@
-package com.practiceSystem.Control;
+package com.practiceSystem.dao.Control;
 
 import org.springframework.web.bind.annotation.*;
 import com.practiceSystem.Entity.Student;
@@ -101,6 +101,41 @@ public class StudentController {
         return response;
     }
 
+    @GetMapping("/me")
+    public StudentResponse me() {
+
+        Student student = service.getCurrentStudent();
+
+        StudentResponse response = new StudentResponse();
+
+        response.setId(student.getId());
+        response.setGroupName(student.getGroupName());
+        response.setSpecialization(student.getSpecialization());
+        response.setUniversityName(student.getUniversity().getName());
+        response.setCourse(student.getCourse());
+        response.setPracticeStart(student.getPracticeStart());
+        response.setPracticeEnd(student.getPracticeEnd());
+
+        return response;
+    }
+
+    @PutMapping("/me")
+    public StudentResponse updateMe(@RequestBody StudentRequest request) {
+
+        Student student = service.updateCurrentStudent(request);
+
+        StudentResponse response = new StudentResponse();
+
+        response.setId(student.getId());
+        response.setGroupName(student.getGroupName());
+        response.setSpecialization(student.getSpecialization());
+        response.setUniversityName(student.getUniversity().getName());
+        response.setCourse(student.getCourse());
+        response.setPracticeStart(student.getPracticeStart());
+        response.setPracticeEnd(student.getPracticeEnd());
+
+        return response;
+    }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id){ service.deleteById(id); }

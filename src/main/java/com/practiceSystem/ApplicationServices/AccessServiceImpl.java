@@ -1,6 +1,7 @@
 package com.practiceSystem.ApplicationServices;
 
 import com.practiceSystem.Entity.*;
+import com.practiceSystem.dao.OrganizationModerator.OrganizationModeratorRepository;
 import com.practiceSystem.dao.User.UserRepository;
 import com.practiceSystem.security.AccessService;
 import org.springframework.security.core.Authentication;
@@ -13,24 +14,19 @@ public class AccessServiceImpl implements AccessService {
 
 
     private final UserRepository userRepository;
+    private final OrganizationModeratorRepository moderatorRepository;
 
-
-    public AccessServiceImpl(UserRepository userRepository) {
+    public AccessServiceImpl(UserRepository userRepository, OrganizationModeratorRepository moderatorRepository) {
         this.userRepository = userRepository;
+        this.moderatorRepository = moderatorRepository;
     }
 
 
     private User getCurrentUser(){
 
-        Authentication authentication =
-                SecurityContextHolder
-                        .getContext()
-                        .getAuthentication();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-
-        return userRepository
-                .findByEmail(authentication.getName())
-                .orElseThrow();
+        return userRepository.findByEmail(authentication.getName()).orElseThrow();
     }
 
 
@@ -40,19 +36,14 @@ public class AccessServiceImpl implements AccessService {
 
         User user = getCurrentUser();
 
-
         if(user.getRole().getName().equals("ADMIN")){
             return true;
         }
 
 
         if(user.getRole().getName().equals("STUDENT")){
-
-            return student.getUser()
-                    .getId()
-                    .equals(user.getId());
+            return student.getUser().getId().equals(user.getId());
         }
-
 
         return false;
     }
@@ -62,19 +53,14 @@ public class AccessServiceImpl implements AccessService {
 
         User user = getCurrentUser();
 
-
         if(user.getRole().getName().equals("ADMIN")){
             return true;
         }
 
-
         if(user.getRole().getName().equals("STUDENT")){
 
-            return student.getUser()
-                    .getId()
-                    .equals(user.getId());
+            return student.getUser().getId().equals(user.getId());
         }
-
 
         return false;
     }
@@ -118,72 +104,33 @@ public class AccessServiceImpl implements AccessService {
     }
 
     @Override
-    public boolean canEditVacancy(Vacancy vacancy){
+    public boolean canEditVacancy(Vacancy vacancy) {
 
         User user = getCurrentUser();
 
+        if (user.getRole().getName().equals("ADMIN")) {return true;}
 
-        if(user.getRole().getName().equals("ADMIN")){
-            return true;
+        if (user.getRole().getName().equals("ORGANIZATION_SUPER_MODERATOR") || user.getRole().getName().equals("ORGANIZATION_MODERATOR")) {
+            return moderatorRepository.findByOrganizationIdAndUserId(vacancy.getOrganization().getId(), user.getId()).isPresent();
         }
-
-
-        if(user.getRole().getName().equals("UNIVERSITY_SUPER_MODERATOR") ||
-                user.getRole().getName().equals("UNIVERSITY_MODERATOR")){
-
-
-            return vacancy.getOrganization()
-                    .getModerators()
-                    .stream()
-                    .anyMatch(
-                            moderator ->
-                                    moderator.getUser()
-                                            .getId()
-                                            .equals(user.getId())
-                    );
-        }
-
 
         return false;
     }
 
     @Override
-    public boolean canEditApplication(Application application){
+    public boolean canEditApplication(Application application) {
 
         User user = getCurrentUser();
 
-
-        if(user.getRole().getName().equals("ADMIN")){
-            return true;
+        if (user.getRole().getName().equals("ADMIN")) {return true;}
+        if (user.getRole().getName().equals("STUDENT")) {return false;}
+        if (user.getRole().getName().equals("ORGANIZATION_SUPER_MODERATOR") || user.getRole().getName().equals("ORGANIZATION_MODERATOR")) {
+            return application.getVacancy().getOrganization().getModerators().stream().anyMatch(moderator -> moderator.getUser().getId().equals(user.getId()));
         }
-
-
-        // студент не меняет статус заявки
-        if(user.getRole().getName().equals("STUDENT")){
-            return false;
-        }
-
-
-        // организация может менять статус заявки
-        if(user.getRole().getName().equals("UNIVERSITY_SUPER_MODERATOR") ||
-                user.getRole().getName().equals("UNIVERSITY_MODERATOR")){
-
-
-            return application.getVacancy()
-                    .getOrganization()
-                    .getModerators()
-                    .stream()
-                    .anyMatch(
-                            moderator ->
-                                    moderator.getUser()
-                                            .getId()
-                                            .equals(user.getId())
-                    );
-        }
-
 
         return false;
     }
+
     @Override
     public boolean canViewOrganization(Organization organization) {
 
@@ -203,26 +150,10 @@ public class AccessServiceImpl implements AccessService {
 
         User user = getCurrentUser();
 
-
-        if(user.getRole().getName().equals("ADMIN")){
-            return true;
+        if (user.getRole().getName().equals("ADMIN")) {return true;}
+        if (user.getRole().getName().equals("ORGANIZATION_SUPER_MODERATOR") || user.getRole().getName().equals("ORGANIZATION_MODERATOR")) {
+            return moderatorRepository.findByOrganizationIdAndUserId(organization.getId(), user.getId()).isPresent();
         }
-
-
-        if(user.getRole().getName().equals("UNIVERSITY_SUPER_MODERATOR") ||
-                user.getRole().getName().equals("UNIVERSITY_MODERATOR")){
-
-
-            return organization.getModerators()
-                    .stream()
-                    .anyMatch(
-                            moderator ->
-                                    moderator.getUser()
-                                            .getId()
-                                            .equals(user.getId())
-                    );
-        }
-
 
         return false;
     }

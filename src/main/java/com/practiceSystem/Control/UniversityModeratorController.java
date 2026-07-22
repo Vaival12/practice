@@ -1,4 +1,4 @@
-package com.practiceSystem.Control;
+package com.practiceSystem.dao.Control;
 
 import com.practiceSystem.Entity.UniversityModerator;
 import com.practiceSystem.dao.UniversityModerator.UniversityModeratorService;

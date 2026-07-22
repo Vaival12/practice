@@ -1,4 +1,4 @@
-package com.practiceSystem.Control;
+package com.practiceSystem.dao.Control;
 
 import org.springframework.web.bind.annotation.*;
 import com.practiceSystem.dto.request.UserRequest;
@@ -88,6 +88,46 @@ public class UserController {
     public UserResponse update(@PathVariable Long id, @RequestBody UserRequest request) {
 
         User user = service.update(id, request);
+
+        UserResponse response = new UserResponse();
+
+        response.setId(user.getId());
+        response.setEmail(user.getEmail());
+        response.setRole(user.getRole());
+        response.setFirstName(user.getFirstName());
+        response.setLastName(user.getLastName());
+        response.setMiddleName(user.getMiddleName());
+        response.setBirthDate(user.getBirthDate());
+        response.setPhone(user.getPhone());
+        response.setActive(user.getActive());
+
+        return response;
+    }
+
+    @GetMapping("/me")
+    public UserResponse me() {
+
+        User user = service.getCurrentUser();
+
+        UserResponse response = new UserResponse();
+
+        response.setId(user.getId());
+        response.setEmail(user.getEmail());
+        response.setRole(user.getRole());
+        response.setFirstName(user.getFirstName());
+        response.setLastName(user.getLastName());
+        response.setMiddleName(user.getMiddleName());
+        response.setBirthDate(user.getBirthDate());
+        response.setPhone(user.getPhone());
+        response.setActive(user.getActive());
+
+        return response;
+    }
+
+    @PutMapping("/me")
+    public UserResponse updateMe(@RequestBody UserRequest request) {
+
+        User user = service.updateCurrentUser(request);
 
         UserResponse response = new UserResponse();
 

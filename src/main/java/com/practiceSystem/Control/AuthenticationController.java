@@ -1,4 +1,4 @@
-package com.practiceSystem.Control;
+package com.practiceSystem.dao.Control;
 
 import com.practiceSystem.dao.Authentication.AuthenticationService;
 import com.practiceSystem.dto.request.LoginRequest;

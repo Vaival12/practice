@@ -1,4 +1,4 @@
-package com.practiceSystem.Control;
+package com.practiceSystem.dao.Control;
 
 import com.practiceSystem.Entity.UniversityModerator;
 import com.practiceSystem.dao.UniversityModerator.UniversityModeratorService;
@@ -104,6 +104,46 @@ public class UniversityController {
 
         return response;
 
+    }
+
+    @GetMapping("/me")
+    public UniversityResponse me() {
+
+        University university =
+                universityService.getCurrentUniversity();
+
+        UniversityResponse response = new UniversityResponse();
+
+        response.setId(university.getId());
+        response.setName(university.getName());
+        response.setDescription(university.getDescription());
+        response.setAddress(university.getAddress());
+        response.setWebsite(university.getWebsite());
+        response.setEmail(university.getEmail());
+        response.setPhone(university.getPhone());
+
+        return response;
+    }
+
+    @PutMapping("/me")
+    public UniversityResponse updateMe(
+            @RequestBody UniversityRequest request){
+
+        University university =
+                universityService.updateCurrentUniversity(request);
+
+        UniversityResponse response =
+                new UniversityResponse();
+
+        response.setId(university.getId());
+        response.setName(university.getName());
+        response.setDescription(university.getDescription());
+        response.setAddress(university.getAddress());
+        response.setWebsite(university.getWebsite());
+        response.setEmail(university.getEmail());
+        response.setPhone(university.getPhone());
+
+        return response;
     }
 
     @DeleteMapping("/{id}")

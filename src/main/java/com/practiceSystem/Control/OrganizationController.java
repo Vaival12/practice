@@ -1,4 +1,4 @@
-package com.practiceSystem.Control;
+package com.practiceSystem.dao.Control;
 
 import org.springframework.web.bind.annotation.*;
 import com.practiceSystem.dto.request.OrganizationRequest;
@@ -89,6 +89,43 @@ public class OrganizationController {
 
         return response;
 
+    }
+
+    @GetMapping("/me")
+    public OrganizationResponse me() {
+
+        Organization organization = organizationService.getCurrentOrganization();
+
+        OrganizationResponse response = new OrganizationResponse();
+
+        response.setId(organization.getId());
+        response.setName(organization.getName());
+        response.setDescription(organization.getDescription());
+        response.setAddress(organization.getAddress());
+        response.setWebsite(organization.getWebsite());
+        response.setEmail(organization.getEmail());
+        response.setPhone(organization.getPhone());
+
+        return response;
+    }
+
+    @PutMapping("/me")
+    public OrganizationResponse updateMe(
+            @RequestBody OrganizationRequest request) {
+
+        Organization organization = organizationService.updateCurrentOrganization(request);
+
+        OrganizationResponse response = new OrganizationResponse();
+
+        response.setId(organization.getId());
+        response.setName(organization.getName());
+        response.setDescription(organization.getDescription());
+        response.setAddress(organization.getAddress());
+        response.setWebsite(organization.getWebsite());
+        response.setEmail(organization.getEmail());
+        response.setPhone(organization.getPhone());
+
+        return response;
     }
 
     @DeleteMapping("/{id}")
